@@ -12,13 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. تحديث جلب المستودع إلى الإصدار v6 المتوافق مع Node 24
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         submodules: recursive
 
+    # 2. تحديث إعداد جافا إلى الإصدار v5 المتوافق مع Node 24
     - name: Set up JDK 17
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         java-version: '17'
         distribution: 'temurin'
@@ -30,8 +32,9 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug --stacktrace
 
+    # 3. تحديث رفع الملف الناتج إلى الإصدار v5 المتوافق مع Node 24
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: PojavLauncher-Debug
         path: app/build/outputs/apk/debug/*.apk
